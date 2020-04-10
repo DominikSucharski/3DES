@@ -8,24 +8,73 @@ namespace _3DES
 {
     class des
     {
+        private UInt64[] sub_key; // 48 bits each
+
+
+        /**
+         * Konstruktor
+         */
+        public des()
+        {
+            sub_key = new UInt64[16];
+        }
+
+
         /**
          * Szyfrowanie 64 bitowego bloku danych
          */
-        public UInt64 Encrypt(UInt64 data)
+        public UInt64 Encrypt(UInt64 data, UInt64 key)
         {
+            // generowanie kluczy
+            Keygen(key);
+            // permutacja początkowa
             data = InitialPermutation(data);
 
-
-            data = FinalPermutation(data);
-            return data;
+            // podział danych na dwie części po 32 bity
+            UInt32 R = (UInt32)data;  // prawa 32 bitowa część danych
+            UInt32 L = (UInt32)(data>>32);  // lewa 32 bitowa część danych
+            
+            UInt32 L_prime = 0;
+            // 16 rund szyfrowania
+            for (byte i = 0; i < 16; i++)
+            {
+                L_prime = R;  // nowa lewa część danych
+                R = L ^ f(R, sub_key[i]);  // nowa prawa część danych
+                L = L_prime;
+            }
+            // łączenie części prawej i lewej
+            data = (((UInt64)R) << 32) | (UInt64)L;
+            // permutacja końcowa
+            return FinalPermutation(data);
         }
+
 
         /**
          * Deszyfrowanie 64 bitowego bloku danych
          */
-        public UInt64 Decrypt(UInt64 data)
+        public UInt64 Decrypt(UInt64 data, UInt64 key)
         {
-            return data;
+            // generowanie kluczy
+            Keygen(key);
+            // permutacja początkowa
+            data = InitialPermutation(data);
+
+            // podział danych na dwie części po 32 bity
+            UInt32 R = (UInt32)data;  // prawa 32 bitowa część danych
+            UInt32 L = (UInt32)(data >> 32);  // lewa 32 bitowa część danych
+
+            UInt32 L_prime = 0;
+            // 16 rund szyfrowania
+            for (byte i = 0; i < 16; i++)
+            {
+                L_prime = R;  // nowa lewa część danych
+                R = L ^ f(R, sub_key[15-i]);  // nowa prawa część danych
+                L = L_prime;
+            }
+            // łączenie części prawej i lewej
+            data = (((UInt64)R) << 32) | (UInt64)L;
+            // permutacja końcowa
+            return FinalPermutation(data);
         }
 
         // Tabela permutacji początkowej
@@ -168,8 +217,46 @@ namespace _3DES
 
 
         /**
+         * Generowanie bitów klucza.
+         * KS, called the key schedule
+         */
+        private void Keygen(UInt64 key)
+        {
+            UInt64 permuted_choice_1 = 0;
+            for (byte i = 0; i < 56; i++)  // 56 bitów klucza
+            {
+                permuted_choice_1 <<= 1;
+                permuted_choice_1 |= (key >> (64 - PC1[i])) & 0x0000000000000001;  // permutacja PC-1
+            }
+
+            UInt32 C = (UInt32)((permuted_choice_1 >> 28) & 0x000000000fffffff);  // lewa połowa (28 bitów)
+            UInt32 D = (UInt32)(permuted_choice_1 & 0x000000000fffffff);  // prawa połowa (28 bitów)
+
+            // obliczanie 16 kluczy
+            for (byte i = 0; i < 16; i++)
+            {
+                // przesuwanie Ci i Di
+                for (byte j = 0; j < ITERATION_SHIFT[i]; j++)
+                {
+                    C = (0x0fffffff & (C << 1)) | (0x00000001 & (C >> 27));
+                    D = (0x0fffffff & (D << 1)) | (0x00000001 & (D >> 27));
+                }
+
+                UInt64 permuted_choice_2 = (((UInt64)C) << 28) | (UInt64)D;
+                sub_key[i] = 0; // każdy podklucz składa się z 48 bitów
+                for (byte j = 0; j < 48; j++)
+                {
+                    sub_key[i] <<= 1;
+                    sub_key[i] |= (permuted_choice_2 >> (56 - PC2[j])) & 0x0000000000000001;  // permutacja PC-2
+                }
+            }
+        }
+
+
+        /**
          * Permutacja początkowa.
          * Przyjmuje na wejście liczbę 64 bitową.
+         * Zwraca liczbę 64 bitową.
          */
         private UInt64 InitialPermutation(UInt64 input)
         {
@@ -183,17 +270,59 @@ namespace _3DES
             return result;
         }
 
+        /**
+         * Funkcja f.
+         * Przyjmuje 32 bity danych wejściowych i
+         * 48 bitowy podklucz
+         * Zwraca liczbę 32 bitową.
+         */
+        private UInt32 f(UInt32 R, UInt64 K)
+        {
+            UInt64 expanded_input = 0;
+            // rozszerzenie z 32 bitów do 48 bitów
+            for (byte i = 0; i < 48; i++)
+            {
+                expanded_input <<= 1;
+                expanded_input |= (UInt64)((R >> (32 - EXPANSION[i])) & 0x00000001);
+            }
 
+            // XOR z podkluczem
+            expanded_input ^= K;
 
+            UInt32 output_s = 0;
+            // 8 s-bloków
+            for (byte i = 0; i < 8; i++)
+            {
+                // wybranie pierwszego i ostatniego bitu z każdej 6 bitowej części
+                byte row = (byte)((expanded_input & (UInt64)(0x0000840000000000 >> 6 * i)) >> (42 - 6 * i));
+                row = (byte)((row >> 4) | (row & 0x01));
+
+                // wybranie 4 środkowych bitów
+                byte column = (byte)((expanded_input & (UInt64)(0x0000780000000000 >> 6 * i)) >> (43 - 6 * i));
+
+                output_s <<= 4;  // przezsunięcie o 4 pozycje
+                output_s |= (UInt32)(SBOX[i, 16 * row + column] & 0x0f);  // dodanie 4 bitów wyjściowych
+            }
+            
+            UInt32 output_p = 0;
+            // permutacja w P-blokach
+            for (byte i = 0; i < 32; i++)
+            {
+                output_p <<= 1;
+                output_p |= (output_s >> (32 - PBOX[i])) & 0x00000001;
+            }
+
+            return output_p;
+        }
 
 
         /**
         * Permutacja końcowa.
          * Przyjmuje na wejście liczbę 64 bitową.
+         * Zwraca liczbę 64 bitową.
          */
         private UInt64 FinalPermutation(UInt64 input)
         {
-            // inverse initial permutation
             UInt64 result = 0;
             for (byte i = 0; i < 64; i++)
             {
