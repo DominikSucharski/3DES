@@ -222,6 +222,9 @@ namespace _3DES
          */
         private void Keygen(UInt64 key)
         {
+            // zerowanie tabeli
+            Array.Clear(sub_key, 0, sub_key.Length);
+
             UInt64 permuted_choice_1 = 0;
             for (byte i = 0; i < 56; i++)  // 56 bitów klucza
             {
@@ -289,6 +292,7 @@ namespace _3DES
             // XOR z podkluczem
             expanded_input ^= K;
 
+            // S1(B1)S2(B2)S3(B3)S4(B4)S5(B5)S6(B6)S7(B7)S8(B8)
             UInt32 output_s = 0;
             // 8 s-bloków
             for (byte i = 0; i < 8; i++)

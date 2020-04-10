@@ -39,6 +39,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.buttonEncipher = new System.Windows.Forms.Button();
+            this.textBoxDES3 = new System.Windows.Forms.TextBox();
+            this.textBoxDES2 = new System.Windows.Forms.TextBox();
+            this.textBoxDES1 = new System.Windows.Forms.TextBox();
+            this.buttonDecipher = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxKey1
@@ -102,6 +106,7 @@
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(178, 42);
             this.textBoxInput.TabIndex = 6;
+            this.textBoxInput.Text = "5468652071756663";
             // 
             // label4
             // 
@@ -139,11 +144,52 @@
             this.buttonEncipher.UseVisualStyleBackColor = true;
             this.buttonEncipher.Click += new System.EventHandler(this.buttonEncipher_Click);
             // 
+            // textBoxDES3
+            // 
+            this.textBoxDES3.Enabled = false;
+            this.textBoxDES3.Location = new System.Drawing.Point(522, 200);
+            this.textBoxDES3.MaxLength = 20;
+            this.textBoxDES3.Name = "textBoxDES3";
+            this.textBoxDES3.Size = new System.Drawing.Size(178, 22);
+            this.textBoxDES3.TabIndex = 13;
+            // 
+            // textBoxDES2
+            // 
+            this.textBoxDES2.Enabled = false;
+            this.textBoxDES2.Location = new System.Drawing.Point(522, 172);
+            this.textBoxDES2.MaxLength = 20;
+            this.textBoxDES2.Name = "textBoxDES2";
+            this.textBoxDES2.Size = new System.Drawing.Size(178, 22);
+            this.textBoxDES2.TabIndex = 12;
+            // 
+            // textBoxDES1
+            // 
+            this.textBoxDES1.Enabled = false;
+            this.textBoxDES1.Location = new System.Drawing.Point(522, 144);
+            this.textBoxDES1.MaxLength = 20;
+            this.textBoxDES1.Name = "textBoxDES1";
+            this.textBoxDES1.Size = new System.Drawing.Size(178, 22);
+            this.textBoxDES1.TabIndex = 11;
+            // 
+            // buttonDecipher
+            // 
+            this.buttonDecipher.Location = new System.Drawing.Point(522, 323);
+            this.buttonDecipher.Name = "buttonDecipher";
+            this.buttonDecipher.Size = new System.Drawing.Size(99, 50);
+            this.buttonDecipher.TabIndex = 14;
+            this.buttonDecipher.Text = "Deszyfruj";
+            this.buttonDecipher.UseVisualStyleBackColor = true;
+            this.buttonDecipher.Click += new System.EventHandler(this.buttonDecipher_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonDecipher);
+            this.Controls.Add(this.textBoxDES3);
+            this.Controls.Add(this.textBoxDES2);
+            this.Controls.Add(this.textBoxDES1);
             this.Controls.Add(this.buttonEncipher);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox5);
@@ -175,6 +221,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button buttonEncipher;
+        private System.Windows.Forms.TextBox textBoxDES3;
+        private System.Windows.Forms.TextBox textBoxDES2;
+        private System.Windows.Forms.TextBox textBoxDES1;
+        private System.Windows.Forms.Button buttonDecipher;
     }
 }
 
