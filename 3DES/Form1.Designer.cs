@@ -34,14 +34,11 @@
             this.textBoxKey2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxKey3 = new System.Windows.Forms.TextBox();
-            this.textBoxInput = new System.Windows.Forms.TextBox();
+            this.textBoxDecrypted = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBoxEncrypted = new System.Windows.Forms.TextBox();
             this.buttonEncipher = new System.Windows.Forms.Button();
-            this.textBoxDES3 = new System.Windows.Forms.TextBox();
-            this.textBoxDES2 = new System.Windows.Forms.TextBox();
-            this.textBoxDES1 = new System.Windows.Forms.TextBox();
             this.buttonDecipher = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -99,14 +96,14 @@
             this.textBoxKey3.TabIndex = 4;
             this.textBoxKey3.Text = "456789ABCDEF0123";
             // 
-            // textBoxInput
+            // textBoxDecrypted
             // 
-            this.textBoxInput.Location = new System.Drawing.Point(264, 80);
-            this.textBoxInput.Multiline = true;
-            this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(178, 42);
-            this.textBoxInput.TabIndex = 6;
-            this.textBoxInput.Text = "5468652071756663";
+            this.textBoxDecrypted.Location = new System.Drawing.Point(264, 80);
+            this.textBoxDecrypted.Multiline = true;
+            this.textBoxDecrypted.Name = "textBoxDecrypted";
+            this.textBoxDecrypted.Size = new System.Drawing.Size(178, 42);
+            this.textBoxDecrypted.TabIndex = 6;
+            this.textBoxDecrypted.Text = "5468652071756663";
             // 
             // label4
             // 
@@ -126,17 +123,17 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Zaszyfrowany tekst";
             // 
-            // textBox5
+            // textBoxEncrypted
             // 
-            this.textBox5.Location = new System.Drawing.Point(264, 253);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(178, 42);
-            this.textBox5.TabIndex = 8;
+            this.textBoxEncrypted.Location = new System.Drawing.Point(264, 253);
+            this.textBoxEncrypted.Multiline = true;
+            this.textBoxEncrypted.Name = "textBoxEncrypted";
+            this.textBoxEncrypted.Size = new System.Drawing.Size(178, 42);
+            this.textBoxEncrypted.TabIndex = 8;
             // 
             // buttonEncipher
             // 
-            this.buttonEncipher.Location = new System.Drawing.Point(333, 323);
+            this.buttonEncipher.Location = new System.Drawing.Point(229, 323);
             this.buttonEncipher.Name = "buttonEncipher";
             this.buttonEncipher.Size = new System.Drawing.Size(99, 50);
             this.buttonEncipher.TabIndex = 10;
@@ -144,36 +141,9 @@
             this.buttonEncipher.UseVisualStyleBackColor = true;
             this.buttonEncipher.Click += new System.EventHandler(this.buttonEncipher_Click);
             // 
-            // textBoxDES3
-            // 
-            this.textBoxDES3.Enabled = false;
-            this.textBoxDES3.Location = new System.Drawing.Point(522, 200);
-            this.textBoxDES3.MaxLength = 20;
-            this.textBoxDES3.Name = "textBoxDES3";
-            this.textBoxDES3.Size = new System.Drawing.Size(178, 22);
-            this.textBoxDES3.TabIndex = 13;
-            // 
-            // textBoxDES2
-            // 
-            this.textBoxDES2.Enabled = false;
-            this.textBoxDES2.Location = new System.Drawing.Point(522, 172);
-            this.textBoxDES2.MaxLength = 20;
-            this.textBoxDES2.Name = "textBoxDES2";
-            this.textBoxDES2.Size = new System.Drawing.Size(178, 22);
-            this.textBoxDES2.TabIndex = 12;
-            // 
-            // textBoxDES1
-            // 
-            this.textBoxDES1.Enabled = false;
-            this.textBoxDES1.Location = new System.Drawing.Point(522, 144);
-            this.textBoxDES1.MaxLength = 20;
-            this.textBoxDES1.Name = "textBoxDES1";
-            this.textBoxDES1.Size = new System.Drawing.Size(178, 22);
-            this.textBoxDES1.TabIndex = 11;
-            // 
             // buttonDecipher
             // 
-            this.buttonDecipher.Location = new System.Drawing.Point(522, 323);
+            this.buttonDecipher.Location = new System.Drawing.Point(400, 323);
             this.buttonDecipher.Name = "buttonDecipher";
             this.buttonDecipher.Size = new System.Drawing.Size(99, 50);
             this.buttonDecipher.TabIndex = 14;
@@ -187,14 +157,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonDecipher);
-            this.Controls.Add(this.textBoxDES3);
-            this.Controls.Add(this.textBoxDES2);
-            this.Controls.Add(this.textBoxDES1);
             this.Controls.Add(this.buttonEncipher);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.textBoxEncrypted);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxInput);
+            this.Controls.Add(this.textBoxDecrypted);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxKey3);
             this.Controls.Add(this.label2);
@@ -216,14 +183,11 @@
         private System.Windows.Forms.TextBox textBoxKey2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxKey3;
-        private System.Windows.Forms.TextBox textBoxInput;
+        private System.Windows.Forms.TextBox textBoxDecrypted;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBoxEncrypted;
         private System.Windows.Forms.Button buttonEncipher;
-        private System.Windows.Forms.TextBox textBoxDES3;
-        private System.Windows.Forms.TextBox textBoxDES2;
-        private System.Windows.Forms.TextBox textBoxDES1;
         private System.Windows.Forms.Button buttonDecipher;
     }
 }
