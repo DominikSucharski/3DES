@@ -8,7 +8,7 @@ namespace _3DES
 {
     class des
     {
-        private UInt64[] sub_key; // 48 bits each
+        private UInt64[] sub_key; // każdy po 48 bitów
 
 
         /**
@@ -51,6 +51,7 @@ namespace _3DES
 
         /**
          * Deszyfrowanie 64 bitowego bloku danych
+         * Różni się jedynie kolejnością używania kluczy sub_key[15-i]
          */
         public UInt64 Decrypt(UInt64 data, UInt64 key)
         {
@@ -77,20 +78,7 @@ namespace _3DES
             return FinalPermutation(data);
         }
 
-        // Tabela permutacji początkowej
-        private static readonly byte[] IP = new byte[64]
-        {
-            58, 50, 42, 34, 26, 18, 10, 2,
-            60, 52, 44, 36, 28, 20, 12, 4,
-            62, 54, 46, 38, 30, 22, 14, 6,
-            64, 56, 48, 40, 32, 24, 16, 8,
-            57, 49, 41, 33, 25, 17,  9, 1,
-            59, 51, 43, 35, 27, 19, 11, 3,
-            61, 53, 45, 37, 29, 21, 13, 5,
-            63, 55, 47, 39, 31, 23, 15, 7
-        };
-
-        // Tabela permutacji PC-1
+        // Tabela permutacji klucza PC-1
         private static readonly byte[] PC1 = new byte[56]
         {
             57, 49, 41, 33, 25, 17,  9,
@@ -104,6 +92,38 @@ namespace _3DES
             21, 13,  5, 28, 20, 12,  4
         };
 
+        // Tabela przesunięcia bitów klucza
+        private static readonly byte[] ITERATION_SHIFT = new byte[16]
+        {
+            1,  1,  2,  2,  2,  2,  2,  2,  1,  2,  2,  2,  2,  2,  2,  1
+        };
+
+        // Tabela permutacji klucza PC-2
+        private static readonly byte[] PC2 = new byte[48]
+        {
+            14, 17, 11, 24,  1,  5,
+             3, 28, 15,  6, 21, 10,
+            23, 19, 12,  4, 26,  8,
+            16,  7, 27, 20, 13,  2,
+            41, 52, 31, 37, 47, 55,
+            30, 40, 51, 45, 33, 48,
+            44, 49, 39, 56, 34, 53,
+            46, 42, 50, 36, 29, 32
+        };
+
+        // Tabela permutacji początkowej
+        private static readonly byte[] IP = new byte[64]
+        {
+            58, 50, 42, 34, 26, 18, 10, 2,
+            60, 52, 44, 36, 28, 20, 12, 4,
+            62, 54, 46, 38, 30, 22, 14, 6,
+            64, 56, 48, 40, 32, 24, 16, 8,
+            57, 49, 41, 33, 25, 17,  9, 1,
+            59, 51, 43, 35, 27, 19, 11, 3,
+            61, 53, 45, 37, 29, 21, 13, 5,
+            63, 55, 47, 39, 31, 23, 15, 7
+        };
+
         // Tabela permutacji rozszerzającej (E BIT-SELECTION TABLE)
         private static readonly byte[] EXPANSION = new byte[48]
         {
@@ -115,25 +135,6 @@ namespace _3DES
             20, 21, 22, 23, 24, 25,
             24, 25, 26, 27, 28, 29,
             28, 29, 30, 31, 32,  1
-        };
-
-        // Tabela przesunięcia bitów klucza
-        private static readonly byte[] ITERATION_SHIFT = new byte[16]
-        {
-            1,  1,  2,  2,  2,  2,  2,  2,  1,  2,  2,  2,  2,  2,  2,  1
-        };
-
-        // Tabela permutacji PC-2
-        private static readonly byte[] PC2 = new byte[48]
-        {
-            14, 17, 11, 24,  1,  5,
-             3, 28, 15,  6, 21, 10,
-            23, 19, 12,  4, 26,  8,
-            16,  7, 27, 20, 13,  2,
-            41, 52, 31, 37, 47, 55,
-            30, 40, 51, 45, 33, 48,
-            44, 49, 39, 56, 34, 53,
-            46, 42, 50, 36, 29, 32
         };
 
         // S-bloki [8*16*4]
@@ -218,7 +219,6 @@ namespace _3DES
 
         /**
          * Generowanie bitów klucza.
-         * KS, called the key schedule
          */
         private void Keygen(UInt64 key)
         {

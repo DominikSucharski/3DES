@@ -38,13 +38,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxEncrypted = new System.Windows.Forms.TextBox();
-            this.buttonEncipher = new System.Windows.Forms.Button();
-            this.buttonDecipher = new System.Windows.Forms.Button();
+            this.buttonEncrypt = new System.Windows.Forms.Button();
+            this.buttonDecrypt = new System.Windows.Forms.Button();
+            this.buttonEncryptFile = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxKey1
             // 
-            this.textBoxKey1.Location = new System.Drawing.Point(264, 145);
+            this.textBoxKey1.Location = new System.Drawing.Point(144, 78);
             this.textBoxKey1.MaxLength = 16;
             this.textBoxKey1.Name = "textBoxKey1";
             this.textBoxKey1.Size = new System.Drawing.Size(178, 22);
@@ -54,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(168, 149);
+            this.label1.Location = new System.Drawing.Point(48, 82);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 17);
             this.label1.TabIndex = 1;
@@ -63,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(168, 177);
+            this.label2.Location = new System.Drawing.Point(48, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 17);
             this.label2.TabIndex = 3;
@@ -71,7 +76,7 @@
             // 
             // textBoxKey2
             // 
-            this.textBoxKey2.Location = new System.Drawing.Point(264, 173);
+            this.textBoxKey2.Location = new System.Drawing.Point(144, 106);
             this.textBoxKey2.MaxLength = 16;
             this.textBoxKey2.Name = "textBoxKey2";
             this.textBoxKey2.Size = new System.Drawing.Size(178, 22);
@@ -81,7 +86,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(168, 205);
+            this.label3.Location = new System.Drawing.Point(48, 138);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 17);
             this.label3.TabIndex = 5;
@@ -89,7 +94,7 @@
             // 
             // textBoxKey3
             // 
-            this.textBoxKey3.Location = new System.Drawing.Point(264, 201);
+            this.textBoxKey3.Location = new System.Drawing.Point(144, 134);
             this.textBoxKey3.MaxLength = 16;
             this.textBoxKey3.Name = "textBoxKey3";
             this.textBoxKey3.Size = new System.Drawing.Size(178, 22);
@@ -98,7 +103,7 @@
             // 
             // textBoxDecrypted
             // 
-            this.textBoxDecrypted.Location = new System.Drawing.Point(264, 80);
+            this.textBoxDecrypted.Location = new System.Drawing.Point(144, 13);
             this.textBoxDecrypted.Multiline = true;
             this.textBoxDecrypted.Name = "textBoxDecrypted";
             this.textBoxDecrypted.Size = new System.Drawing.Size(178, 42);
@@ -108,7 +113,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(144, 94);
+            this.label4.Location = new System.Drawing.Point(24, 27);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(114, 17);
             this.label4.TabIndex = 7;
@@ -117,7 +122,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(129, 266);
+            this.label5.Location = new System.Drawing.Point(9, 186);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(129, 17);
             this.label5.TabIndex = 9;
@@ -125,39 +130,79 @@
             // 
             // textBoxEncrypted
             // 
-            this.textBoxEncrypted.Location = new System.Drawing.Point(264, 253);
+            this.textBoxEncrypted.Location = new System.Drawing.Point(144, 173);
             this.textBoxEncrypted.Multiline = true;
             this.textBoxEncrypted.Name = "textBoxEncrypted";
             this.textBoxEncrypted.Size = new System.Drawing.Size(178, 42);
             this.textBoxEncrypted.TabIndex = 8;
             // 
-            // buttonEncipher
+            // buttonEncrypt
             // 
-            this.buttonEncipher.Location = new System.Drawing.Point(229, 323);
-            this.buttonEncipher.Name = "buttonEncipher";
-            this.buttonEncipher.Size = new System.Drawing.Size(99, 50);
-            this.buttonEncipher.TabIndex = 10;
-            this.buttonEncipher.Text = "Szyfruj";
-            this.buttonEncipher.UseVisualStyleBackColor = true;
-            this.buttonEncipher.Click += new System.EventHandler(this.buttonEncipher_Click);
+            this.buttonEncrypt.Location = new System.Drawing.Point(39, 226);
+            this.buttonEncrypt.Name = "buttonEncrypt";
+            this.buttonEncrypt.Size = new System.Drawing.Size(99, 41);
+            this.buttonEncrypt.TabIndex = 10;
+            this.buttonEncrypt.Text = "Szyfruj";
+            this.buttonEncrypt.UseVisualStyleBackColor = true;
+            this.buttonEncrypt.Click += new System.EventHandler(this.buttonEncrypt_Click);
             // 
-            // buttonDecipher
+            // buttonDecrypt
             // 
-            this.buttonDecipher.Location = new System.Drawing.Point(400, 323);
-            this.buttonDecipher.Name = "buttonDecipher";
-            this.buttonDecipher.Size = new System.Drawing.Size(99, 50);
-            this.buttonDecipher.TabIndex = 14;
-            this.buttonDecipher.Text = "Deszyfruj";
-            this.buttonDecipher.UseVisualStyleBackColor = true;
-            this.buttonDecipher.Click += new System.EventHandler(this.buttonDecipher_Click);
+            this.buttonDecrypt.Location = new System.Drawing.Point(244, 226);
+            this.buttonDecrypt.Name = "buttonDecrypt";
+            this.buttonDecrypt.Size = new System.Drawing.Size(99, 41);
+            this.buttonDecrypt.TabIndex = 14;
+            this.buttonDecrypt.Text = "Deszyfruj";
+            this.buttonDecrypt.UseVisualStyleBackColor = true;
+            this.buttonDecrypt.Click += new System.EventHandler(this.buttonDecrypt_Click);
+            // 
+            // buttonEncryptFile
+            // 
+            this.buttonEncryptFile.Location = new System.Drawing.Point(39, 320);
+            this.buttonEncryptFile.Name = "buttonEncryptFile";
+            this.buttonEncryptFile.Size = new System.Drawing.Size(126, 44);
+            this.buttonEncryptFile.TabIndex = 15;
+            this.buttonEncryptFile.Text = "Szyfruj plik";
+            this.buttonEncryptFile.UseVisualStyleBackColor = true;
+            this.buttonEncryptFile.Click += new System.EventHandler(this.buttonEncryptFile_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(217, 320);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(126, 44);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Deszyfruj plik";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 378);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(384, 26);
+            this.statusStrip1.TabIndex = 18;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(151, 20);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.buttonDecipher);
-            this.Controls.Add(this.buttonEncipher);
+            this.ClientSize = new System.Drawing.Size(384, 404);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonEncryptFile);
+            this.Controls.Add(this.buttonDecrypt);
+            this.Controls.Add(this.buttonEncrypt);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxEncrypted);
             this.Controls.Add(this.label4);
@@ -170,6 +215,8 @@
             this.Controls.Add(this.textBoxKey1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,8 +234,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxEncrypted;
-        private System.Windows.Forms.Button buttonEncipher;
-        private System.Windows.Forms.Button buttonDecipher;
+        private System.Windows.Forms.Button buttonEncrypt;
+        private System.Windows.Forms.Button buttonDecrypt;
+        private System.Windows.Forms.Button buttonEncryptFile;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 
